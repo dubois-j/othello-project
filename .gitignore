@@ -1,1 +1,5 @@
 othello/__pycache__/*
+pyproject.toml
+othello-project\.python-version
+othello-project\uv.lock
+test_player.py
