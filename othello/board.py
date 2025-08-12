@@ -50,7 +50,13 @@ class Board:
 
 
     def canAddPawn(self, row, col, color):
-        pass
+        """
+        
+        """
+        if self.isSquareEmpty(row, col) and self.isFlipPossible(row, col, color):
+            return True
+        else:
+            return False
 
 
     def isSquareEmpty(self, row, col):
