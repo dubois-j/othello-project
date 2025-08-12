@@ -1,6 +1,6 @@
 import numpy as np
-from square import Square
-from pawn import Pawn
+from othello.square import Square
+from othello.pawn import Pawn
 
 class Board:
     rownames = (1, 2, 3, 4, 5, 6, 7, 8)
@@ -29,12 +29,17 @@ class Board:
         """
 
         # Creating empty board
-        board = np.repeat(Square(None))
-        board = np.reshape(board, (8,8))
-
-        # Placing center Pawns
-        board[3,3].pawn, board[4,4].pawn = Pawn(1), Pawn(1)
-        board[3,4].pawn, board[4,3].pawn = Pawn(0), Pawn(0)
+        board = np.empty((8,8), dtype=Square)
+        
+        #Placing center Pawns
+        for i in range(8):
+            for j in range(8):
+                if (i,j)==(4,4) or (i,j)==(3,3):
+                    board[i,j] = Square(Pawn(1))
+                elif (i,j)==(4,3) or (i,j)==(3,4):
+                    board[i,j] = Square(Pawn(0))
+                else:
+                    board[i,j] = Square(None)
 
         self.board = board
 
@@ -72,13 +77,11 @@ class Board:
             (Bool): True if valid move, False otherwise.
         """
         
-        # Checking if a Pawn can be added
-        if not self.isSquareEmpty(row, col) and 
+        if not self.isSquareEmpty(row, col):
             return False
         
-        for direction in ['N','NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']:
-            if not self.isFlipPossible(row, col, color, direction):
-                return False
+        if not self.isFlipPossible(row, col, color):
+            return False
         
         return True
 
@@ -127,7 +130,7 @@ class Board:
         # Check if can flip direction, stops as soon as flip possible in one direction
         directions = ['N','NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
         canFlip = False
-        i_dir = -1
+        i_dir = 0
 
         while not canFlip and i_dir < len(directions):
             direction = directions[i_dir]
@@ -153,9 +156,9 @@ class Board:
 
             # Parse direction until done
             while stillInBoard and not nextIsEmpty and not nextIsSameColor and not canFlip:
-                current_row, current_col = row + increments[0], col + increments[1]
+                current_row, current_col = current_row + increments[0], current_col + increments[1]
 
-                # Check if not within board
+                # Check if position is out of board
                 if not (0 <= current_row <= 7 and 0 <= current_col <= 7):
                     stillInBoard = False
                 
@@ -167,7 +170,6 @@ class Board:
                 elif self.board[current_row, current_col].pawn.color == color:
                     nextIsSameColor = True
                     canFlip = True
-
             i_dir += 1
             
         return canFlip
