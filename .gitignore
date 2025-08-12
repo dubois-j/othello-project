@@ -3,3 +3,6 @@ pyproject.toml
 .python-version
 uv.lock
 test_player.py
+pyproject.toml
+othello-project\.python-version
+othello-project\uv.lock
