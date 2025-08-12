@@ -44,15 +44,26 @@ class Board:
         If the move is valid, adds a Pawn of given color to the given position.
         """
 
-        if self.canAddPawn(col, row, color):
+        if self.canAddPawn(row, col, color):
             self.board[row, col] = Pawn(color)
             self.flipPawns(row, col, color)
 
 
     def canAddPawn(self, row, col, color):
         """
+        Checks if placing a Pawn on a given Square is a valid move.
+
+        Args:
+            row (int):  rown index.
+            col (int):  column index.
+            color (int):    color of the Pawn to place.
+                            O : Black
+                            1 : White
         
+        Returns:
+            (Bool): True if valid move, False otherwise.
         """
+
         if self.isSquareEmpty(row, col) and self.isFlipPossible(row, col, color):
             return True
         else:
@@ -60,7 +71,21 @@ class Board:
 
 
     def isSquareEmpty(self, row, col):
-        pass
+        """
+        Checks if given Square is empty.
+
+        Args:
+            row (int):  row index.
+            col (int):  column index.
+        
+        Returns:
+            (Bool): True if Square is empty, False otherwise.
+        """
+
+        if self.board[row, col].pawn == None:
+            return True
+        else:
+            return False
 
 
     def isFlipPossible(self, row, col, color):
@@ -68,11 +93,11 @@ class Board:
         Checks if placing a Pawn on the Square given by col and row will flip at least one other Pawn.
 
         Args:
-            col (int): column index
-            row (int): row index
-            color (int): color of the Pawn to place.
-                         O : Black
-                         1 : White
+            row (int):  row index
+            col (int):  column index
+            color (int):    color of the Pawn to place.
+                            O : Black
+                            1 : White
         
         Returns:
             (Bool): True if at least one Pawn will be flipped, False otherwise.
@@ -82,7 +107,7 @@ class Board:
     
 
     def flipPawns(row, col, color):
-
+        pass
 
 
     def displayBoard(self):
@@ -95,4 +120,5 @@ class Board:
 
         """
 
+        pass
     
