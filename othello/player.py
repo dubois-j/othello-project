@@ -1,3 +1,4 @@
+from othello.color import Color
 class Player:
     """
     Player object
@@ -6,9 +7,9 @@ class Player:
     @type color: int
     @type name: str
     """
-    def __init__(self,color,name):
-        if color!=0 and color!=1:
-            raise ValueError(f"Color of Pawn should be 0 for black or 1 for white. The value {color} was given.")
+    def __init__(self,color:Color,name):
+        if not isinstance(color,Color):
+            raise ValueError(f"Color of Player should be Color.black or Color.white. \"{color}\" was given.")
         self.__color=color
         self.__name=name
     @property

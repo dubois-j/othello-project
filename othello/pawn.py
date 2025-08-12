@@ -1,15 +1,17 @@
+from othello.color import Color
+
 class Pawn:
     """
     Define a pawn, 0 for black, 1 for white
 
     """
-    def __init__(self,color):
+    def __init__(self,color:Color):
         """
         Args:
             color: 0 or 1
         """
-        if color!=0 and color!=1:
-            raise ValueError(f"Color of Pawn should be 0 for black or 1 for white. The value \"{color}\" was given.")
+        if not isinstance(color,Color):
+            raise ValueError(f"Color of Pawn should be Color.black or Color.white. \"{color}\" was given.")
         self.__color=color
 
     @property
@@ -20,7 +22,7 @@ class Pawn:
         """
         flip the pawn to the other color
         """
-        if self.__color==1:
-            self.__color=0
+        if self.__color==Color.black:
+            self.__color=Color.white
         else:
-            self.__color=1
+            self.__color=Color.black
