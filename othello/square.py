@@ -1,4 +1,4 @@
-import pawn as pa
+import othello.pawn as pa
 class Square:
     """A square on the board to contain None or a PAwn object"""
     def __init__(self,pawn):
