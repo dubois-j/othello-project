@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/julien.dubois@Digital-Grenoble.local/Documents/POO/othello-project/")
+sys.path.append("/home/thibault.launois@Digital-Grenoble.local/Documents/othello-project/")
 
 from othello.board import Board
 from othello.color import Color

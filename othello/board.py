@@ -2,6 +2,7 @@ import numpy as np
 from othello.square import Square
 from othello.pawn import Pawn
 from othello.color import Color
+import matplotlib.pyplot as plt
 
 class Board:
     rownames = (1, 2, 3, 4, 5, 6, 7, 8)
@@ -271,6 +272,19 @@ class Board:
         Returns:
 
         """
-
-        pass
+        print("  ",end="")
+        for i in self.colnames:
+            print(i+" ", end="")
+        print()
+        for i in range(8):
+            print(str(i+1)+" ",end="")
+            for j in range(8):
+                if self.board[i,j].isEmpty():
+                    print("- ",end="")
+                elif self.board[i,j].pawn.color==Color.black:
+                    print("\u25ef ",end="")
+                else:
+                    print("\u2B24 ",end="")
+            print()
+        
     
