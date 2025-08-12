@@ -54,8 +54,8 @@ class Othello:
         return self.current_turn
     def play(self, row, col):
         
-        if self.board.canAddPawn(row, col, self.current_turn):
-           self.board.addPawn(row, col, self.current_turn)
+        if self.board.canAddPawn(row, col, self.current_turn.color):
+           self.board.addPawn(row, col, self.current_turn.color)
            
         else:
             print("Coup invalide, veuillez réessayer.")
