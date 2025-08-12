@@ -2,7 +2,7 @@ import numpy as np
 from othello.square import Square
 from othello.pawn import Pawn
 from othello.color import Color
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 class Board:
     rownames = (1, 2, 3, 4, 5, 6, 7, 8)

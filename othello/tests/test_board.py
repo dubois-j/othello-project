@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/thibault.launois@Digital-Grenoble.local/Documents/othello-project/")
+sys.path.append("/home/julien.dubois@Digital-Grenoble.local/Documents/POO/othello-project/")
 
 from othello.board import Board
 from othello.color import Color
@@ -30,11 +30,15 @@ def display_board(myBoard, showPossibleMoves=True):
         print()
 
 myBoard = Board()
+myBoard.displayBoard()
 #print(myBoard.getPossibleMoves(Color.black))
-display_board(myBoard)
+#display_board(myBoard)
 myBoard.addPawn(2,3,Color.black)
-display_board(myBoard)
+myBoard.displayBoard()
+#display_board(myBoard)
 myBoard.addPawn(2,2,Color.white)
-display_board(myBoard)
+myBoard.displayBoard()
+#display_board(myBoard)
 myBoard.addPawn(4,5,Color.black)
-display_board(myBoard)
+myBoard.displayBoard()
+#display_board(myBoard)
