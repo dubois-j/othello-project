@@ -1,6 +1,7 @@
 import numpy as np
 from othello.square import Square
 from othello.pawn import Pawn
+from othello.color import Color
 
 class Board:
     rownames = (1, 2, 3, 4, 5, 6, 7, 8)
@@ -35,9 +36,9 @@ class Board:
         for i in range(8):
             for j in range(8):
                 if (i,j)==(4,4) or (i,j)==(3,3):
-                    board[i,j] = Square(Pawn(1))
+                    board[i,j] = Square(Pawn(Color.white))
                 elif (i,j)==(4,3) or (i,j)==(3,4):
-                    board[i,j] = Square(Pawn(0))
+                    board[i,j] = Square(Pawn(Color.black))
                 else:
                     board[i,j] = Square(None)
 
@@ -119,10 +120,6 @@ class Board:
         Returns:
             (Bool): True if at least one Pawn will be flipped, False otherwise.
         """
-
-        # Verifying input validity
-        if color not in [0,1]:
-            raise ValueError(f"Color must be either 0 or 1 but {color} was given instead.")
         
         if row>7 or row<0 or col>7 or col<0:
             raise ValueError(f"Column and row index must be contained between (0,0) and (7,7) but ({row}, {col}) was given instead.")
