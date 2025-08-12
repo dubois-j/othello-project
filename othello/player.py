@@ -7,24 +7,32 @@ class Player:
     @type name: str
     """
     def __init__(self,color,name):
-        if color!=0 or color!=1:
+        if color!=0 and color!=1:
             raise ValueError(f"Color of Pawn should be 0 for black or 1 for white. The value {color} was given.")
-        self.color=color
-        self.name=name
-
+        self.__color=color
+        self.__name=name
+    @property
+    def color(self):
+        return self.__color
+    @property
+    def name(self):
+        return self.__name
+    
     def getMove(self,rownames,colnames):
         """
         Ask the move the player wants to play
-        
+        Args:
+            rownames:list of row names on board
+            colnames: list of col names on board
         Returns:
             (row,col) of the position in the matrix
         """
         inloop=True
-        position=input("What position do you want to play").strip()
+        position=input("What position do you want to play ? ").strip()
         while inloop:
-            if len(position)==2 and position[0] in colnames and position[1] in rownames:
-                row=rownames.index(position[0])
-                col=colnames.index(position[1])
+            if len(position)==2 and position[0] in colnames and int(position[1]) in rownames:
+                row=rownames.index(int(position[1]))
+                col=colnames.index(position[0])
                 inloop=False
                 return (row,col)
-            position=input("Invalid position. Please retry:").strip()
+            position=input("Invalid position. Please retry: ").strip()
