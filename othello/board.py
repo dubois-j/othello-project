@@ -45,22 +45,25 @@ class Board:
         self.board = board
 
     
-    def addPawn(self, row, col, color):
+    def addPawn(self, row, col, color, printWrongInput=False):
         """
         If the move is valid, adds a Pawn of given color to the given position.
         """
 
         # Verifying input validity
-        if color not in [0,1]:
-            raise ValueError(f"Color must be either 0 or 1 but {color} was given instead.")
+        if color not in [Color.black, Color.white]:
+            raise ValueError(f"Color must be either Color.white or Color.black but {color} was given instead.")
         
         if row>7 or row<0 or col>7 or col<0:
             raise ValueError(f"Column and row index must be contained between (0,0) and (7,7) but ({row}, {col}) was given instead.")
         
         # Add Pawn
         if self.canAddPawn(row, col, color):
-            self.board[row, col] = Pawn(color)
+            self.board[row, col].addPawn(color)
             self.flipPawns(row, col, color)
+
+        elif printWrongInput:
+            print("Coup non valide ! Pas bien.")
 
 
     def canAddPawn(self, row, col, color):
@@ -195,8 +198,68 @@ class Board:
         return (row_increment, col_increment)
 
 
-    def flipPawns(row, col, color):
-        pass
+    def flipPawns(self, row, col, color):
+        # Check and flip possible pawns in all directions
+        for direction in ['N','NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']:
+            increments = self.directionToIndexIncrement(direction)
+            current_row, current_col = row + increments[0], col + increments[1]
+            stillInBoard = True
+            nextIsEmpty = False
+            nextIsSameColor = False
+
+            ## First loop, necessary because can't flip on first iteration no matter what
+            # Check if not within board
+            if not (0 <= current_row <= 7 and 0 <= current_col <= 7):
+                stillInBoard = False
+            
+            # Else, check if next is empty
+            elif self.board[current_row, current_col].pawn==None:
+                nextIsEmpty = True
+            
+            # Else, check if next is same color
+            elif self.board[current_row, current_col].pawn.color == color:
+                nextIsSameColor = True
+            
+
+            # Parse direction until done
+            while stillInBoard and not nextIsEmpty and not nextIsSameColor:
+                current_row, current_col = current_row + increments[0], current_col + increments[1]
+
+                # Check if position is out of board
+                if not (0 <= current_row <= 7 and 0 <= current_col <= 7):
+                    stillInBoard = False
+                
+                # Else, check if next is empty
+                elif self.board[current_row, current_col].pawn==None:
+                    nextIsEmpty = True
+                
+                # Else, check if next is same color
+                elif self.board[current_row, current_col].pawn.color == color:
+                    nextIsSameColor = True
+                    current_row, current_col = current_row - increments[0], current_col - increments[1]
+                    while (current_row, current_col) != (row, col):
+                        self.board[current_row, current_col].pawn.flip()
+                        current_row, current_col = current_row - increments[0], current_col - increments[1]
+
+
+    def getPossibleMoves(self, color:Color):
+        """
+        Parse the board and obtains the list of possible move for a given Color.
+
+        Args:
+            color (Color): object of class Color. Either Color.white or Color.black.
+        
+        Returns:
+            possibleMoves (list): list of coordinates (as tuples) of possible moves.
+        """
+
+        possibleMoves = []
+        for i in range(8):
+            for j in range(8):
+                if self.canAddPawn(i,j,color):
+                    possibleMoves.append((i,j))
+        
+        return possibleMoves
 
 
     def displayBoard(self):
