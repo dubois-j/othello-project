@@ -8,7 +8,7 @@ class Pawn:
         Args:
             color: 0 or 1
         """
-        if color!=0 or color!=1:
+        if color!=0 and color!=1:
             raise ValueError(f"Color of Pawn should be 0 for black or 1 for white. The value {color} was given.")
         self.color=color
     
