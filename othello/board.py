@@ -33,8 +33,8 @@ class Board:
         board = np.reshape(board, (8,8))
 
         # Placing center Pawns
-        board[3,3].pawn, board[4,4].pawn = Pawn(1)
-        board[3,4].pawn, board[4,3].pawn = Pawn(0)
+        board[3,3].pawn, board[4,4].pawn = Pawn(1), Pawn(1)
+        board[3,4].pawn, board[4,3].pawn = Pawn(0), Pawn(0)
 
         self.board = board
 
