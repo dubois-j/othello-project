@@ -29,7 +29,9 @@ class Player:
             (row,col) of the position in the matrix
         """
         inloop=True
-        position=input("What position do you want to play ? ").strip()
+        print(f"{self.name}, it's your turn.")
+        position=input("Enter your move: ").strip()
+        position = position.upper()
         while inloop:
             if len(position)==2 and position[0] in colnames and int(position[1]) in rownames:
                 row=rownames.index(int(position[1]))
@@ -40,4 +42,4 @@ class Player:
                 else:
                     position=input("Move not possible. Please retry: ").strip()
             else:
-                position=input("Invalid position. Please retry: ").strip()
+                position=input("Invalid input. Please retry: ").strip()

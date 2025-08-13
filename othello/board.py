@@ -263,7 +263,7 @@ class Board:
         return possibleMoves
 
 
-    def displayBoard(self):
+    def displayBoard(self, showPossibleMoves = False, colorToShowMoves = None):
         """
         Displays the current state of the board. Black Pawns are displayed as *, white Pawns as O.
 
@@ -272,19 +272,37 @@ class Board:
         Returns:
 
         """
+        if showPossibleMoves:
+            if not isinstance(colorToShowMoves, Color):
+                raise TypeError(f"Expected Class Color in 'colorToShowMoves' but were given {type(colorToShowMoves)} instead.")
+
+        # Shows columns at the top of the board
         print("  ",end="")
         for i in self.colnames:
             print(i+" ", end="")
         print()
+
+        # Shows the board (and row number)
         for i in range(8):
             print(str(i+1)+" ",end="")
             for j in range(8):
                 if self.board[i,j].isEmpty():
-                    print("- ",end="")
+                    if showPossibleMoves:
+                        if (i,j) in self.getPossibleMoves(colorToShowMoves):
+                            print("X ",end="")
+                        else:
+                            print("- ", end="")
+                    else:
+                        print("- ",end="")
                 elif self.board[i,j].pawn.color==Color.black:
                     print("\u25ef ",end="")
                 else:
                     print("\u2B24 ",end="")
-            print()
+            print(str(i+1))
         
+        # Shows columns at the bottom of the board
+        print("  ",end="")
+        for i in self.colnames:
+            print(i+" ", end="")
+        print()
     

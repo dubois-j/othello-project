@@ -42,7 +42,7 @@ class Othello:
             for col in range(8):
                 pawn = self.board.board[row, col].pawn
                 if pawn is not None:
-                    if pawn.color == 0:
+                    if pawn.color == Color.black:
                         black_score += 1
                     else:
                         white_score += 1
