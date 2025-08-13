@@ -1,11 +1,11 @@
 #import othello.board as Board
 #import othello.player as Player
-import othello.othello as Othello
+from othello.othello import Othello
 #from othello.color import Color
 #from square import Square
 
 game=Othello()
-
+game.board.displayBoard()
 while not game.isGameOver():
     currentAvailableMoves = game.board.getPossibleMoves(game.currentPlayer.color)
     if len(currentAvailableMoves)>0: # Vérifier si ya des coups possibles
@@ -14,6 +14,7 @@ while not game.isGameOver():
                                        currentAvailableMoves)
         game.board.addPawn(row,col,game.currentPlayer.color)
         game.updateScore()
+        game.board.displayBoard()
     game.nextPlayer()
 
 game.showResults()

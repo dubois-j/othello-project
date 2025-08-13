@@ -47,7 +47,7 @@ class Othello:
                     else:
                         white_score += 1
                 else:
-                    emmpty +=1
+                    empty +=1
 
         if self.isGameOver():
             if black_score > white_score:
@@ -94,10 +94,10 @@ class Othello:
             (Bool): True if there are valid moves avaible, False otherwise.
         """
 
-        possibleMovesBlack = self.board.board.getPossibleMoves(Color.black)
-        possibleMovesWhite = self.board.board.getPossibleMoves(Color.white)
+        possibleMovesBlack = self.board.getPossibleMoves(Color.black)
+        possibleMovesWhite = self.board.getPossibleMoves(Color.white)
 
-        if len(possibleMovesBlack)==0 and len(possibleMovesWhite==0):
+        if len(possibleMovesBlack)==0 and len(possibleMovesWhite)==0:
             return True
         
         return False
@@ -112,21 +112,9 @@ class Othello:
             self.currentPlayer = self.playerWhite
         else:
             self.currentPlayer = self.playerBlack
-    
 
-    def play(self, row, col):
-        """
         
-        """
-
-        if self.board.canAddPawn(row, col, self.current_turn.color):
-           self.board.addPawn(row, col, self.current_turn.color)
-           
-        else:
-            print("Coup invalide, veuillez réessayer.")
-        
-        
-    def show_result(self):
+    def showResult(self):
         """
         
         """
