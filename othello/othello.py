@@ -103,20 +103,15 @@ class Othello:
         return False
 
 
-    def position(self, row, col):
+    def nextPlayer(self):
         """
-        
-        """
-
-        pass
-
-
-    def currrent_player(self):
-        """
-        
+        Update self.currentPlayer to the next Player.
         """
 
-        return self.current_turn
+        if self.currentPlayer == self.playerBlack:
+            self.currentPlayer = self.playerWhite
+        else:
+            self.currentPlayer = self.playerBlack
     
 
     def play(self, row, col):
