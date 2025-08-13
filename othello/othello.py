@@ -20,13 +20,14 @@ class Othello:
         self.board = Board()
         
 
-    def get_score(self):
+    def getScore(self):
         """
-        
+        Computes the final score.
         """
 
         black_score = 0
         white_score = 0
+        empty = 0
         for row in range(8):
             for col in range(8):
                 pawn = self.board.board[row, col].pawn
@@ -35,11 +36,16 @@ class Othello:
                         black_score += 1
                     else:
                         white_score += 1
-                """# arajouter   
-                else pawn is None :
-                 gannant +=1
-                """        
-        return {'black': black_score, 'white': white_score}
+                else:
+                    emmpty +=1
+        if black_score > white_score:
+            black_score += empty
+        
+        elif white_score > black_score:
+            white_score += empty
+                     
+        return {self.playerBlack: black_score, 
+                self.playerWhite: white_score}
     
                           
     def get_winner(self):
@@ -56,7 +62,7 @@ class Othello:
             return "Match nul"                    
         
         
-    def is_gameOver(self):
+    def isGameOver(self):
         """
         Checks if there are possible moves left. If yes, the game is not over, else, the game is over.
 
