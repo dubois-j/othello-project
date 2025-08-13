@@ -30,6 +30,9 @@ class Othello:
         """
         Computes the current score. 
         If the game is over and there is no tie, also add empty squares to the winner's score.
+
+        Returns:
+            (dict): Score as a dictionary, with self.playerBlack and self.playerWhite as keys.
         """
 
         black_score = 0
@@ -45,6 +48,7 @@ class Othello:
                         white_score += 1
                 else:
                     emmpty +=1
+
         if self.isGameOver():
             if black_score > white_score:
                 black_score += empty
@@ -55,23 +59,26 @@ class Othello:
         return {self.playerBlack: black_score, 
                 self.playerWhite: white_score}
     
+
     def updateScore(self):
         """
         Updates the game's current score.
         """
-        
+
         self.scores = self.getScore()
     
                           
     def getWinner(self):
         """
-        
+        Compute and return the name of the winner, or 'tie' if there's a tie.
+
+        Returns:
+            (str): Name of the winner, or "Tie" if there is no winner.
         """
 
-        points = self.score()
-        if points['black'] > points['white']:
+        if self.scores[self.playerBlack] > self.scores[self.playerWhite]:
             return self.playerBlack.name
-        elif points['white'] > points['black']:
+        elif self.scores[self.playerBlack] < self.scores[self.playerWhite]:
             return self.playerWhite.name
         else:
             return "Match nul"                    
@@ -132,4 +139,4 @@ class Othello:
         print("\n--- Résultat ---")
         print(f"{self.playerBlack.name} (Noirs) : {self.scores[self.playerBlack]} points")
         print(f"{self.playerWhite.name} (Blancs) : {self.scores[self.playerWhite]} points")
-        print(f"Gagnant : {self.get_winner()}")
+        print(f"Gagnant : {self.getWinner()}")
