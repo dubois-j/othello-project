@@ -6,7 +6,13 @@ class Othello:
 
     def __init__(self):
         """
-        
+        Constructor of Class Othello
+        Attributes:
+            playerBlack (Player)
+            playerWhite (Player)
+            currentPlayer (Player)
+            scores (dict)
+            board (Board)
         """
 
         name0 = input("Nom du joueur 0 (pions noirs): ")
@@ -14,7 +20,7 @@ class Othello:
         
         self.playerBlack = Player(Color.black,name0)
         self.playerWhite = Player(Color.white,name1)
-        self.current_turn = self.playerBlack # Le joueur qui commence
+        self.currentPlayer = self.playerBlack # Le joueur qui commence
     
         self.scores = {self.playerBlack: 2, self.playerWhite: 2} # Score initial
         self.board = Board()
