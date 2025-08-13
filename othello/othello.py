@@ -12,9 +12,9 @@ class Othello:
         name0 = input("Nom du joueur 0 (pions noirs): ")
         name1 = input("Nom du joueur (pions blancs) : ")
         
-        self.playerBlack = Player(0,name0)
-        self.playerWhite = Player(0,name1)
-        self.current_turn = self.player0 # Le joueur qui commence
+        self.playerBlack = Player(Color.black,name0)
+        self.playerWhite = Player(Color.white,name1)
+        self.current_turn = self.playerBlack # Le joueur qui commence
     
         self.scores = {self.playerBlack: 2, self.playerWhite: 2} # Score initial
         self.board = Board()
@@ -39,7 +39,7 @@ class Othello:
                 else pawn is None :
                  gannant +=1
                 """        
-        return {0: black_score, 1: white_score}
+        return {'black': black_score, 'white': white_score}
     
                           
     def get_winner(self):
@@ -48,10 +48,10 @@ class Othello:
         """
 
         points = self.score()
-        if points[0] > points[1]:
-            return self.name0
-        elif points[1] > points[0]:
-            return self.name1
+        if points['black'] > points['white']:
+            return self.playerBlack.name
+        elif points['white'] > points['black']:
+            return self.playerWhite.name
         else:
             return "Match nul"                    
         
