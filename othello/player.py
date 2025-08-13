@@ -19,7 +19,7 @@ class Player:
     def name(self):
         return self.__name
     
-    def getMove(self,rownames,colnames):
+    def getMove(self,rownames,colnames,possibleMoves):
         """
         Ask the move the player wants to play
         Args:
@@ -34,6 +34,10 @@ class Player:
             if len(position)==2 and position[0] in colnames and int(position[1]) in rownames:
                 row=rownames.index(int(position[1]))
                 col=colnames.index(position[0])
-                inloop=False
-                return (row,col)
-            position=input("Invalid position. Please retry: ").strip()
+                if (row,col) in possibleMoves:
+                    inloop=False
+                    return (row,col)
+                else:
+                    position=input("Move not possible. Please retry: ").strip()
+            else:
+                position=input("Invalid position. Please retry: ").strip()

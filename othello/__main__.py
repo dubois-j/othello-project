@@ -1,29 +1,20 @@
-import othello.board as Board
-import othello.player as Player
+#import othello.board as Board
+#import othello.player as Player
 import othello.othello as Othello
-from othello.color import Color
-from square import Square
-
-
-julien=Square()
-
+#from othello.color import Color
+#from square import Square
 
 game=Othello()
 
 while not game.isGameOver():
-
-    # Player Black
-    # Vérifier si ya des coups possibles
-    currentMove = game.playerBlack.getMove(game.board.rownames, 
-                                           game.board.colnames)
-    currentAvailableMoves = game.board.getPossibleMoves(Color.black)
-    while currentMove not in currentAvailableMoves:
-        print("T'es con ou quoi ?")
-        currentMove = game.playerBlack.getMove(game.board.rownames, 
-                                           game.board.colnames)
-    
-    # Player White
-    game.play() # Utiliser board.addPawn() plutôt
+    currentAvailableMoves = game.board.getPossibleMoves(game.currentPlayer.color)
+    if len(currentAvailableMoves)>0: # Vérifier si ya des coups possibles
+        (row,col)=game.currentPlayer.getMove(game.board.rownames,
+                                       game.board.colnames,
+                                       currentAvailableMoves)
+        game.board.addPawn(row,col,game.currentPlayer.color)
+        game.updateScore()
+    game.nextPlayer()
 
 game.showResults()
 
