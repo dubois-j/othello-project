@@ -15,7 +15,6 @@ while not game.isGameOver():
                                        currentAvailableMoves)
         game.board.addPawn(row,col,game.currentPlayer.color)
         game.updateScore()
-        #game.board.displayBoard(showPossibleMoves=True, colorToShowMoves=game.currentPlayer.color)
     game.nextPlayer()
 
 game.board.displayBoard()

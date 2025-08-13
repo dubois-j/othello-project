@@ -5,7 +5,7 @@ from othello.color import Color
 #import matplotlib.pyplot as plt
 
 class Board:
-    rownames = (1, 2, 3, 4, 5, 6, 7, 8)
+    rownames = ('1', '2', '3', '4', '5', '6', '7', '8')
     colnames = ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
 
     def __init__(self):

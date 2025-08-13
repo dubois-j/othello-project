@@ -30,16 +30,18 @@ class Player:
         """
         inloop=True
         print(f"{self.name}, it's your turn.")
-        position=input("Enter your move: ").strip()
-        position = position.upper()
+        position=input("Enter your move: ").strip().upper()
         while inloop:
-            if len(position)==2 and position[0] in colnames and int(position[1]) in rownames:
-                row=rownames.index(int(position[1]))
+            if len(position)!=2:
+                position=input("Invalid input. Please retry: ").strip().upper()
+
+            elif position[0] in colnames and position[1] in rownames:
+                row=rownames.index(position[1])
                 col=colnames.index(position[0])
                 if (row,col) in possibleMoves:
                     inloop=False
                     return (row,col)
                 else:
-                    position=input("Move not possible. Please retry: ").strip()
+                    position=input("Move not possible. Please retry: ").strip().upper()
             else:
-                position=input("Invalid input. Please retry: ").strip()
+                position=input("Invalid input. Please retry: ").strip().upper()
