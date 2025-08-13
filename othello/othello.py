@@ -1,8 +1,14 @@
-from player import Player  
+from othello.player import Player  
+from othello.color import Color
+from othello.board import Board
 
 class Othello:
+
     def __init__(self):
+        """
         
+        """
+
         name0 = input("Nom du joueur 0 (pions noirs): ")
         name1 = input("Nom du joueur (pions blancs) : ")
         
@@ -13,7 +19,12 @@ class Othello:
         self.scores = {self.playerBlack: 2, self.playerWhite: 2} # Score initial
         self.board = Board()
         
+
     def get_score(self):
+        """
+        
+        """
+
         black_score = 0
         white_score = 0
         for row in range(8):
@@ -30,9 +41,12 @@ class Othello:
                 """        
         return {0: black_score, 1: white_score}
     
-                
                           
     def get_winner(self):
+        """
+        
+        """
+
         points = self.score()
         if points[0] > points[1]:
             return self.name0
@@ -42,18 +56,46 @@ class Othello:
             return "Match nul"                    
         
         
-    
-        
     def is_gameOver(self):
-        scores = self.get_score()
-        total = scores[0] + scores[1]
-        return total == 64 #plateau complet    
-    def position(self, row, col):
-        pass
-    def currrent_player(self):
-        return self.current_turn
-    def play(self, row, col):
+        """
+        Checks if there are possible moves left. If yes, the game is not over, else, the game is over.
+
+        Args:
+
+        Returns:
+            (Bool): True if there are valid moves avaible, False otherwise.
+        """
+
+        possibleMovesBlack = self.board.board.getPossibleMoves(Color.black)
+        possibleMovesWhite = self.board.board.getPossibleMoves(Color.white)
+
+        if len(possibleMovesBlack)==0 and len(possibleMovesWhite==0):
+            return True
         
+        return False
+
+
+    def position(self, row, col):
+        """
+        
+        """
+
+        pass
+
+
+    def currrent_player(self):
+        """
+        
+        """
+
+        return self.current_turn
+    
+
+    def play(self, row, col):
+        """
+        
+        """
+
         if self.board.canAddPawn(row, col, self.current_turn.color):
            self.board.addPawn(row, col, self.current_turn.color)
            
@@ -62,14 +104,11 @@ class Othello:
         
         
     def show_result(self):
+        """
         
+        """
+
         print("\n--- Résultat ---")
         print(f"{self.playerBlack.name} (Noirs) : {self.scores[self.playerBlack]} points")
         print(f"{self.playerWhite.name} (Blancs) : {self.scores[self.playerWhite]} points")
         print(f"Gagnant : {self.get_winner()}")
-
-    
-
-
-
-            
