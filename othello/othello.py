@@ -7,7 +7,7 @@ from othello.ai_player_random import AIPlayerRandom
 
 class Othello:
 
-    def __init__(self):
+    def __init__(self, init=True, playerBlack:Player = None, playerWhite:Player = None, board:Board = None):
         """
         Constructor of Class Othello
         Attributes:
@@ -17,12 +17,21 @@ class Othello:
             scores (dict)
             board (Board)
         """
-        self.initPlayers()
-        self.currentPlayer = self.playerBlack # Le joueur qui commence
-    
-        self.scores = {self.playerBlack: 2, self.playerWhite: 2} # Score initial
-        self.board = Board()
+
+        if init:
+            self.initPlayers()
+            self.currentPlayer = self.playerBlack # Le joueur qui commence
         
+            self.scores = {self.playerBlack: 2, self.playerWhite: 2} # Score initial
+            self.board = Board()
+
+        else:
+            self.playerBlack = playerBlack
+            self.playerWhite = playerWhite
+            self.board = board
+            self.score = self.updateScore()
+        
+
     def initPlayers(self):
         """
         Ask if players should be human or AI.
@@ -37,6 +46,7 @@ class Othello:
         self.choosePlayer(Color.black)
         self.choosePlayer(Color.white)
     
+
     def choosePlayer(self,color):
         """
         Ask name if human, ask which AI if not
@@ -174,4 +184,11 @@ class Othello:
 
 
     def copy(self):
-        game = Othello()
+        """
+        
+        """
+        game = Othello(init=False, 
+                       playerBlack=self.playerBlack,
+                       playerWhite=self.playerWhite,
+                       board=self.board.copy())
+        return game
