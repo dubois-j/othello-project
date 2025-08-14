@@ -171,3 +171,7 @@ class Othello:
         print(f"{self.playerBlack.name} (Noirs) : {self.scores[self.playerBlack]} points")
         print(f"{self.playerWhite.name} (Blancs) : {self.scores[self.playerWhite]} points")
         print(f"Gagnant : {self.getWinner()}")
+
+
+    def copy(self):
+        game = Othello()
