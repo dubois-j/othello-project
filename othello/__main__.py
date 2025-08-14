@@ -4,11 +4,14 @@ from othello.othello import Othello
 #from othello.color import Color
 #from square import Square
 from othello.ai_player_minimax import AIPlayerMiniMax
+import time
 
 game=Othello()
 
+
 while not game.isGameOver():
-    game.board.displayBoard(showPossibleMoves=True, colorToShowMoves=game.currentPlayer.color)
+    
+    game.board.updateBoard(game.currentPlayer.name, game.currentPlayer.color, showPossibleMoves=True, colorToShowMoves=game.currentPlayer.color)
     currentAvailableMoves = game.board.getPossibleMoves(game.currentPlayer.color)
     if len(currentAvailableMoves)>0: # Vérifier si ya des coups possibles
         (row,col)=game.currentPlayer.getMove(game.board.rownames,
@@ -18,6 +21,6 @@ while not game.isGameOver():
         game.updateScore()
     game.nextPlayer()
 
-game.board.displayBoard()
+game.board.updateBoard()
 game.showResult()
 

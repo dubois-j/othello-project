@@ -2,7 +2,8 @@ import numpy as np
 from othello.square import Square
 from othello.pawn import Pawn
 from othello.color import Color
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+import time
 
 class Board:
     rownames = ('1', '2', '3', '4', '5', '6', '7', '8')
@@ -44,6 +45,7 @@ class Board:
                     board[i,j] = Square(None)
 
         self.board = board
+        self.initBoard()
 
     
     def addPawn(self, row, col, color, printWrongInput=False):
@@ -272,7 +274,23 @@ class Board:
         return possibleMoves
 
 
-    def displayBoard(self, showPossibleMoves = False, colorToShowMoves = None):
+    def initBoard(self):
+        """
+        Initialize the figure object of Board
+
+        Args:
+
+        Returns:
+
+        """
+        plt.ion()
+
+        self.fig = plt.figure(figsize=(8,8))
+        self.ax = self.fig.add_subplot(111)
+        
+        
+    
+    def updateBoard(self, playerName, playerColor, showPossibleMoves = False, colorToShowMoves = None):
         """
         Displays the current state of the board. Black Pawns are displayed as *, white Pawns as O.
 
@@ -281,37 +299,52 @@ class Board:
         Returns:
 
         """
+        self.ax.cla()
+        #Drawing the board of the othello
+        self.ax.set_ylim(-0.5,7.5)
+        self.ax.set_xlim(-0.5,7.5)
+        self.ax.set_facecolor("darkolivegreen")
+        self.ax.set_yticks([7,6,5,4,3,2,1,0],['1','2','3','4','5','6','7','8'])
+        self.ax.set_xticks([0,1,2,3,4,5,6,7],['A','B','C','D','E','F','G','H'])
+        self.ax.tick_params(axis="x", bottom=True, top=True, labelbottom=True, labeltop=True)
+        self.ax.tick_params(axis="y", right=True, left=True, labelright=True, labelleft=True)
+        if playerColor==Color.black:
+            self.ax.set_title(f"{playerName}, it's your turn with black pawn", weight='bold')
+        elif playerColor==Color.white:
+            self.ax.set_title(f"{playerName}, it's your turn with white pawn", weight='bold')
+        for i in [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5]:
+            self.ax.axvline(i,color='k')
+            self.ax.axhline(i,color='k')
         
         if showPossibleMoves:
             if not isinstance(colorToShowMoves, Color):
                 raise TypeError(f"Expected Class Color in 'colorToShowMoves' but were given {type(colorToShowMoves)} instead.")
+            else:
+                self.updateBoardColor(colorToShowMoves,possible=True)
 
-        # Shows columns at the top of the board
-        print("  ",end="")
-        for i in self.colnames:
-            print(i+" ", end="")
-        print()
+        self.updateBoardColor(Color.black)
+        self.updateBoardColor(Color.white)
 
-        # Shows the board (and row number)
+    def updateBoardColor(self,color, possible=False):
+        x=[]
+        y=[]
+        
         for i in range(8):
-            print(str(i+1)+" ",end="")
             for j in range(8):
                 if self.board[i,j].isEmpty():
-                    if showPossibleMoves:
-                        if (i,j) in self.getPossibleMoves(colorToShowMoves):
-                            print("X ",end="")
-                        else:
-                            print("- ", end="")
-                    else:
-                        print("- ",end="")
-                elif self.board[i,j].pawn.color==Color.black:
-                    print("\u25ef ",end="")
-                else:
-                    print("\u2B24 ",end="")
-            print(str(i+1))
-        
-        # Shows columns at the bottom of the board
-        print("  ",end="")
-        for i in self.colnames:
-            print(i+" ", end="")
-        print()
+                    if possible:
+                        if (i,j) in self.getPossibleMoves(color):
+                            x.append(j)
+                            y.append(7-i)
+                elif self.board[i,j].pawn.color==color and possible==False:
+                    x.append(j)
+                    y.append(7-i)
+        if possible:
+            if color==Color.black:
+                self.ax.plot(x,y,c='k',markersize=45, marker='o',linestyle='',alpha=0.25)
+            elif color==Color.white:
+                self.ax.plot(x,y,c='w',markersize=45, marker='o',linestyle='',alpha=0.25)
+        elif color==Color.black:
+            self.ax.plot(x,y,c='k',markersize=45, marker='o',linestyle='')
+        elif color==Color.white:
+            self.ax.plot(x,y,c='w',markersize=45, marker='o',linestyle='')
