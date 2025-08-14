@@ -2,6 +2,7 @@ import numpy as np
 from othello.square import Square
 from othello.pawn import Pawn
 from othello.color import Color
+from copy import deepcopy
 #import matplotlib.pyplot as plt
 
 class Board:
@@ -281,7 +282,7 @@ class Board:
         Returns:
 
         """
-        
+
         if showPossibleMoves:
             if not isinstance(colorToShowMoves, Color):
                 raise TypeError(f"Expected Class Color in 'colorToShowMoves' but were given {type(colorToShowMoves)} instead.")
@@ -315,3 +316,19 @@ class Board:
         for i in self.colnames:
             print(i+" ", end="")
         print()
+
+    
+    def copy(self):
+        """
+        Copies the Board object.
+
+        Args:
+
+        Returns:
+            (Board): Copy of the Board object.
+        """
+
+        copiedBoard = Board()
+        copiedBoard.board = deepcopy(self.board)
+
+        return copiedBoard

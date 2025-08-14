@@ -46,7 +46,7 @@ class AIPlayerAlphaBeta(Player):
         return False
     
 
-    def applyAlphaBeta(self, game:Othello, currentDepth:int, alpha:int, beta:int):
+    def applyAlphaBeta(self, game:Othello, currentDepth:int, alpha=-999999, beta=999999):
         """
         
         """
@@ -57,13 +57,27 @@ class AIPlayerAlphaBeta(Player):
         if self.isMyTurn(game):
             for move in game.board.getPossibleMoves(self.color):
                 gameCopy = game.copy()
+                gameCopy.board.addPawn(move[0], move[1], self.color)
+                gameCopy.updateScore()
+                score = self.applyAlphaBeta(gameCopy, currentDepth-1, alpha, beta)
+                if score > alpha:
+                    alpha = score
+                    bestMove = move
+                    if alpha >= beta:
+                        break
+            return alpha
+        else:
+            for move in game.board.getPossibleMoves(self.color):
+                gameCopy = game.copy()
+                gameCopy.board.addPawn(move[0], move[1], self.color)
+                
 
 
         else:
             pass
 
 
-    def isMyTurn(self, game:Othello):
+    def isMyTurn(self, game):
         """
         Checks if it's the AI turn or the oppononent's one.
 

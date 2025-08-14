@@ -7,17 +7,35 @@ class Player:
     @type color: int
     @type name: str
     """
-    def __init__(self,color:Color,name):
+
+    def __init__(self, color:Color, name):
+        """
+
+        """
+
         if not isinstance(color,Color):
             raise ValueError(f"Color of Player should be Color.black or Color.white. \"{color}\" was given.")
         self.__color=color
         self.__name=name
+
+
     @property
     def color(self):
+        """
+        
+        """
+
         return self.__color
+    
+
     @property
     def name(self):
+        """
+        
+        """
+
         return self.__name
+    
     
     def getMove(self,rownames,colnames,possibleMoves):
         """
@@ -28,6 +46,7 @@ class Player:
         Returns:
             (row,col) of the position in the matrix
         """
+        
         inloop=True
         print(f"{self.name}, it's your turn.")
         position=input("Enter your move: ").strip().upper()
