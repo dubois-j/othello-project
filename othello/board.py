@@ -74,9 +74,7 @@ class Board:
         Args:
             row (int):  rown index.
             col (int):  column index.
-            color (int):    color of the Pawn to place.
-                            O : Black
-                            1 : White
+            color (Color):    color of the Pawn to place.
         
         Returns:
             (Bool): True if valid move, False otherwise.
@@ -118,8 +116,6 @@ class Board:
             row (int):  row index
             col (int):  column index
             color (int):    color of the Pawn to place.
-                            O : Black
-                            1 : White
         
         Returns:
             (Bool): True if at least one Pawn will be flipped, False otherwise.
@@ -175,6 +171,7 @@ class Board:
             
         return canFlip
     
+
     def directionToIndexIncrement(self, direction):
         """
         Transforms a direction in ['N','NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'] to a index increment to parse the board.
@@ -200,6 +197,18 @@ class Board:
 
 
     def flipPawns(self, row, col, color):
+        """
+        Flip the pawns on the board after having placed a pawn of a given color on a given square.
+
+        Args:
+            row (int):  row index
+            col (int):  column index
+            color (Color):    color of the Pawn to place.
+        
+        Returns:
+
+        """
+
         # Check and flip possible pawns in all directions
         for direction in ['N','NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']:
             increments = self.directionToIndexIncrement(direction)
@@ -272,6 +281,7 @@ class Board:
         Returns:
 
         """
+        
         if showPossibleMoves:
             if not isinstance(colorToShowMoves, Color):
                 raise TypeError(f"Expected Class Color in 'colorToShowMoves' but were given {type(colorToShowMoves)} instead.")
@@ -305,4 +315,3 @@ class Board:
         for i in self.colnames:
             print(i+" ", end="")
         print()
-    

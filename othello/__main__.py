@@ -3,6 +3,7 @@
 from othello.othello import Othello
 #from othello.color import Color
 #from square import Square
+from othello.ai_player_minimax import AIPlayerMiniMax
 
 game=Othello()
 
