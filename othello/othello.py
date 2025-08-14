@@ -1,6 +1,9 @@
 from othello.player import Player  
 from othello.color import Color
 from othello.board import Board
+from othello.ai_player_alphabeta import AIPlayerAlphaBeta
+from othello.ai_player_minimax import AIPlayerMiniMax
+from othello.ai_player_random import AIPlayerRandom
 
 class Othello:
 
@@ -14,17 +17,62 @@ class Othello:
             scores (dict)
             board (Board)
         """
-
-        name0 = input("Nom du joueur 0 (pions noirs): ")
-        name1 = input("Nom du joueur (pions blancs) : ")
-        
-        self.playerBlack = Player(Color.black,name0)
-        self.playerWhite = Player(Color.white,name1)
+        self.initPlayers()
         self.currentPlayer = self.playerBlack # Le joueur qui commence
     
         self.scores = {self.playerBlack: 2, self.playerWhite: 2} # Score initial
         self.board = Board()
         
+    def initPlayers(self):
+        """
+        Ask if players should be human or AI.
+        Attribute the correct player object to attribute playerblack and player white
+
+        Args:
+
+        Returns:
+
+        """
+        print("Players can be either human or AI.")
+        self.choosePlayer(Color.black)
+        self.choosePlayer(Color.white)
+    
+    def choosePlayer(self,color):
+        """
+        Ask name if human, ask which AI if not
+        """
+        yes=['y','yes','o','oui']
+        no=['non','no','n']
+        if color==Color.black:
+            color_str="black"
+        elif color==Color.white:
+            color_str="white"
+        else:
+            raise TypeError("choosePlayer did not receive a color object.")
+        
+        answer=input(f"Should player {color_str} be human ? (y/n)").strip().lower()
+        while answer not in yes and answer not in no:
+            answer=input("Incorrect input. Please retry: ").strip().lower()
+        
+        if answer in yes:
+            name = input(f"Name of {color_str} player: ")
+            player=Player(color,name)
+        elif answer in no:
+            list_ai=["minimax","alphabeta","random","1","2","3"]
+            ai=input("Which type of AI ? (1:minimax 2:alphabeta 3:random) ").strip().lower()
+            while ai not in list_ai:
+                ai=input("Incorrect input. Please retry: ").strip().lower()
+            if ai=='minimax' or ai=='1':
+                player=AIPlayerMiniMax(color,"Minimax")
+            elif ai=='alphabeta' or ai=='2':
+                player=AIPlayerAlphaBeta(color,"Minimax")
+            else:
+                player=AIPlayerRandom(color,"Random")
+        if color==Color.black:
+            self.playerBlack=player
+        elif color==Color.white:
+            self.playerWhite=player
+
 
     def getScore(self):
         """
